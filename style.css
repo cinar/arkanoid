@@ -1,0 +1,14 @@
+#game {
+  border: 1px solid #000;
+}
+
+#background,
+#paddle,
+#ball,
+#brick-blue,
+#brick-green,
+#brick-purple,
+#brick-red,
+#brick-yellow {
+  visibility: hidden;
+}
