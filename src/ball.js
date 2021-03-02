@@ -1,3 +1,5 @@
+'use strict';
+
 import { SPACE_WIDTH } from './space.js';
 
 const BALL_ID = 'ball';
@@ -17,6 +19,10 @@ export class Ball {
     this.image = document.getElementById(BALL_ID);
     this.width = BALL_WIDTH;
     this.height = BALL_HEIGHT;
+    this.reset();
+  }
+
+  reset() {
     this.x = BALL_X;
     this.y = BALL_Y;
     this.xStep = BALL_SPEED;

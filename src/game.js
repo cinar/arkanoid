@@ -1,3 +1,5 @@
+'use strict';
+
 import { Space } from './space.js';
 import { Paddle } from './paddle.js';
 import { Ball } from './ball.js';
@@ -30,10 +32,31 @@ function isColliding(box1, box2) {
  */
 export class Game {
   constructor() {
-    this.space = new Space();
+    this.space = new Space(this);
     this.paddle = new Paddle();
     this.ball = new Ball();
     this.bricks = makeBricks(LEVEL);
+    this.gameOver = false;
+    this.score = 0;
+
+    document.addEventListener('keyup', (event) => {
+      if (this.gameOver && (event.key === 'Enter')) {
+        this.reset();
+        this.start();
+      }
+    });
+  }
+
+  reset() {
+    this.paddle.reset();
+    this.ball.reset();
+
+    this.bricks.forEach((brick) => {
+      brick.reset();
+    });
+
+    this.gameOver = false;
+    this.score = 0;
   }
 
   start() {
@@ -54,33 +77,53 @@ export class Game {
     });
   }
 
+  checkBallCollidingBricks() {
+    const ballBox = this.ball.box();
+
+    for (const brick of this.bricks) {
+      if (brick.intact() && isColliding(ballBox, brick.box())) {
+        this.ball.bounceY();
+
+        brick.hit();
+        if (!brick.intact()) {
+          this.score++;
+        }
+
+        break;
+      }
+    }
+  }
+
+  intactBricksCount() {
+    return this.bricks.length - this.score;
+  }
+
   gameLoop() {
+    let youWin = false;
+
     this.update();
 
     if (this.paddle.y < this.ball.y) {
-      this.space.gameOver = true;
+      this.gameOver = true;
     } else if (isColliding(this.paddle.box(), this.ball.box())) {
       this.ball.bounceY();
     } else {
-      const ballBox = this.ball.box();
-
-      for (const brick of this.bricks) {
-        if (brick.intact() && isColliding(ballBox, brick.box())) {
-          this.ball.bounceY();
-
-          brick.hit();
-          if (!brick.intact()) {
-            this.space.score++;
-          }
-
-          break;
-        }
+      this.checkBallCollidingBricks();
+      if (this.intactBricksCount() === 0) {
+        this.gameOver = true;
+        youWin = true;
       }
     }
 
     this.space.clear();
 
-    if (!this.space.gameOver) {
+    if (this.gameOver) {
+      if (youWin) {
+        this.space.drawYouWin();
+      } else {
+        this.space.drawGameOver();
+      }
+    } else {
       this.draw();
       window.requestAnimationFrame(() => this.gameLoop());
     }

@@ -1,3 +1,5 @@
+'use strict';
+
 import { SPACE_WIDTH, SPACE_HEIGHT } from './space.js';
 
 const PADDLE_IMAGE_ID = 'paddle';
@@ -18,9 +20,7 @@ const PADDLE_END = SPACE_WIDTH - PADDLE_WIDTH;
 export class Paddle {
   constructor() {
     this.image = document.getElementById(PADDLE_IMAGE_ID);
-    this.x = PADDLE_X;
-    this.y = PADDLE_Y;
-    this.step = 0;
+    this.reset();
 
     const self = this;
 
@@ -37,6 +37,12 @@ export class Paddle {
         self.step = 0;
       }
     });
+  }
+
+  reset() {
+    this.x = PADDLE_X;
+    this.y = PADDLE_Y;
+    this.step = 0;
   }
 
   update() {

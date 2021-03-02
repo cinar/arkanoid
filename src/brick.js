@@ -1,3 +1,5 @@
+'use strict';
+
 const BRICK_BLUE_ID = 'brick-blue';
 const BRICK_GREEN_ID = 'brick-green';
 const BRICK_PURPLE_ID = 'brick-purple';
@@ -20,9 +22,16 @@ const BRICKS_Y = 50;
 export class Brick {
   constructor(id, x, y, energy) {
     this.image = document.getElementById(id);
-    this.x = x;
-    this.y = y;
-    this.energy = energy;
+    this.initialX = x;
+    this.initialY = y;
+    this.initialEnergy = energy;
+    this.reset();
+  }
+
+  reset() {
+    this.x = this.initialX;
+    this.y = this.initialY;
+    this.energy = this.initialEnergy;
   }
 
   hit() {
