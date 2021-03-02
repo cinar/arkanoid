@@ -21,27 +21,23 @@ export class Paddle {
   constructor() {
     this.image = document.getElementById(PADDLE_IMAGE_ID);
     this.reset();
-
-    const self = this;
-
-    document.addEventListener('keydown', (event) => {
-      if (event.key === 'ArrowLeft') {
-        self.step = -PADDLE_SPEED;
-      } else if (event.key === 'ArrowRight') {
-        self.step = PADDLE_SPEED;
-      }
-    });
-
-    document.addEventListener('keyup', (event) => {
-      if ((event.key === 'ArrowLeft') || (event.key === 'ArrowRight')) {
-        self.step = 0;
-      }
-    });
   }
 
   reset() {
     this.x = PADDLE_X;
     this.y = PADDLE_Y;
+    this.step = 0;
+  }
+
+  leftDown() {
+    this.step = -PADDLE_SPEED;
+  }
+
+  rightDown() {
+    this.step = PADDLE_SPEED;
+  }
+
+  keyUp() {
     this.step = 0;
   }
 

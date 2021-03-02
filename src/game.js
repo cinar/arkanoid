@@ -1,6 +1,6 @@
 'use strict';
 
-import { Space } from './space.js';
+import { SPACE_WIDTH, Space } from './space.js';
 import { Paddle } from './paddle.js';
 import { Ball } from './ball.js';
 import { makeBricks } from './brick.js';
@@ -39,10 +39,26 @@ export class Game {
     this.gameOver = false;
     this.score = 0;
 
+    document.addEventListener('keydown', (event) => {
+      if (!this.gameOver) {
+        if (event.key === 'ArrowLeft') {
+          this.paddle.leftDown();
+        } else if (event.key === 'ArrowRight') {
+          this.paddle.rightDown();
+        }
+      }
+    });
+
     document.addEventListener('keyup', (event) => {
-      if (this.gameOver && (event.key === 'Enter')) {
-        this.reset();
-        this.start();
+      if (this.gameOver) {
+        if (event.key === 'Enter') {
+          this.reset();
+          this.start();
+        }
+      } else {
+        if ((event.key === 'ArrowLeft') || (event.key === 'ArrowRight')) {
+          this.paddle.keyUp();
+        }
       }
     });
   }
