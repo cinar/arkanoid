@@ -9,6 +9,9 @@ const BACKGROUND_IMAGE_ID = 'background';
 const SCORE_X = 20;
 const SCORE_Y = SPACE_HEIGHT - 20;
 
+const LEVEL_X = SPACE_WIDTH - 20;
+const LEVEL_Y = SPACE_HEIGHT - 20;
+
 const MESSAGE_X = Math.floor(SPACE_WIDTH / 2);
 const MESSAGE_Y = Math.floor(SPACE_HEIGHT / 2);
 
@@ -35,6 +38,10 @@ export class Space {
     this.context.font = '18px sans';
     this.context.textAlign = 'left';
     this.context.fillText(`Score: ${this.game.score}`, SCORE_X, SCORE_Y);
+
+    this.context.font = '18px sans';
+    this.context.textAlign = 'right';
+    this.context.fillText(`Level: ${this.game.level}`, LEVEL_X, LEVEL_Y);
   }
 
   drawMessage(message) {

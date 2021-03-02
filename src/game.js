@@ -6,11 +6,13 @@ import { Ball } from './ball.js';
 import { makeBricks } from './brick.js';
 
 const LEVEL = [
-  0, 0, 1, 1, 1, 1, 1, 1, 0, 0,
-  0, 2, 2, 2, 2, 2, 2, 2, 2, 0,
-  0, 3, 3, 3, 3, 3, 3, 3, 3, 0,
-  0, 0, 4, 4, 4, 4, 4, 4, 0, 0,
-  0, 0, 5, 5, 0, 0, 5, 5, 0, 0,
+  [
+    0, 0, 1, 1, 1, 1, 1, 1, 0, 0,
+    0, 2, 2, 2, 2, 2, 2, 2, 2, 0,
+    0, 3, 3, 3, 3, 3, 3, 3, 3, 0,
+    0, 0, 4, 4, 4, 4, 4, 4, 0, 0,
+    0, 0, 5, 5, 0, 0, 5, 5, 0, 0,
+  ]
 ];
 
 function isColliding(box1, box2) {
@@ -35,7 +37,8 @@ export class Game {
     this.space = new Space(this);
     this.paddle = new Paddle();
     this.ball = new Ball();
-    this.bricks = makeBricks(LEVEL);
+    this.level = 0;
+    this.bricks = makeBricks(LEVEL[this.level]);
     this.gameOver = false;
     this.score = 0;
 
