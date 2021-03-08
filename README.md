@@ -1,6 +1,10 @@
 # Arkanoid Game
 
+Block breaking.
+
 ## Demo
+
+[Demo Page](https://arkanoid.onurcinar.repl.co/)
 
 ![Arkanoid Game](screenshot.png)
 
