@@ -1,6 +1,6 @@
 # Arkanoid Game
 
-Block breaking.
+Another game that I developed in JavaScript with my son. It has only a single level for now.
 
 ## Demo
 
